@@ -10,11 +10,9 @@ insert into students(name, avatar_id)
 values ('student_01', 1), ('student_02', 2), ('student_03', 3), ('student_04', 4), ('student_05', 5),
        ('student_06', 6), ('student_07', 7), ('student_08', 8), ('student_09', 9), ('student_10', 10);
 
-
 insert into emails(email, student_id)
 values ('email_01', 1), ('email_02', 1), ('email_03', 2), ('email_04', 2), ('email_05', 3), ('email_06', 4),
        ('email_07', 5), ('email_08', 6), ('email_09', 7), ('email_10', 8), ('email_11', 9), ('email_12', 10);
-
 
 insert into student_courses(student_id, course_id)
 values (1, 1),   (1, 2),   (1, 3),
