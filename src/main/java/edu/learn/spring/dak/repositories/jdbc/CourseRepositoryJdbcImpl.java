@@ -18,15 +18,15 @@ public class CourseRepositoryJdbcImpl implements CourseRepositoryJdbc {
 
 	@Autowired
 	private final JdbcOperations opr;
-	
+
 	@Override
 	public List<Course> findAllUsed() {
-		return opr.query("select c.id, c.name " 
-				+"from courses c inner join student_courses sc on c.id sc.course_id "
-				+ "group by c.id, c.name", new CourseRowMapper());
+		return opr.query("select c.id, c.name "
+				+"from courses c inner join student_courses sc on c.id = sc.course_id "
+				+ "group by c.id, c.name order by c.name", new CourseRowMapper());
 	}
-	
-	private class CourseRowMapper implements RowMapper<Course> { 
+
+	private class CourseRowMapper implements RowMapper<Course> {
 		@Override
 		public Course mapRow(ResultSet rst, int rowNum) throws SQLException {
 			return new Course(rst.getLong(1), rst.getString(2));

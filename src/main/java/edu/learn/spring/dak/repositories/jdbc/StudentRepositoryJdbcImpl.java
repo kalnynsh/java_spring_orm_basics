@@ -21,38 +21,38 @@ public class StudentRepositoryJdbcImpl implements StudentRepositoryJdbc {
 
 	private final CourseRepositoryJdbc courseRepository;
 	private final JdbcOperations op;
-	
+
 	@Override
 	public List<Student> findAllWithAllInfo() {
 		List<Course> courses = courseRepository.findAllUsed();
 		List<StudentCourseRelation> relations = getAllRelations();
-		
+
 		Map<Long, Student> students = op.query("select s.id, s.name, a.id avatar_id, a.photo_url, e.id email_id, e.email "
-				+ "from (studets s left join avatars a on "
+				+ "from (students s left join avatars a on "
 				+ "s.avatar_id = a.id) left join emails e on s.id = e.student_id",
 				new StudentResultSetExtractor());
-		
+
 		mergeStudentsInfo(students, courses, relations);
-		
+
 		return new ArrayList<>(Objects.requireNonNull(students).values());
 	}
 
 	private List<StudentCourseRelation> getAllRelations() {
-		
-		return op.query("select student_id, course_id from student_courses sc order by student_id, course_id", 
+
+		return op.query("select student_id, course_id from student_courses sc order by student_id, course_id",
 				(rs, idx) -> new StudentCourseRelation(rs.getLong(1), rs.getLong(2)));
 	}
-	
-	private void mergeStudentsInfo(Map<Long, Student> students, List<Course> courses, 
+
+	private void mergeStudentsInfo(Map<Long, Student> students, List<Course> courses,
 			                       List<StudentCourseRelation> relations) {
-		
+
 		Map<Long, Course> coursesMap = courses.stream().collect(Collectors.toMap(Course::getId, c -> c));
-		
+
 		relations.forEach(r -> {
 			if (students.containsKey(r.getStudentId()) && coursesMap.containsKey(r.getCourseId())) {
 				students.get(r.getStudentId()).getCourses().add(coursesMap.get(r.getCourseId()));
 			}
-		});		
+		});
 	}
 
 }

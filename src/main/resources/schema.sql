@@ -10,7 +10,7 @@ CREATE TABLE courses(
     PRIMARY KEY (id)
 );
 
-CREATE TABLE otus_students(
+CREATE TABLE students(
 	id BIGSERIAL,
     name VARCHAR(255),
     avatar_id BIGINT REFERENCES avatars(id),
@@ -19,13 +19,13 @@ CREATE TABLE otus_students(
 
 CREATE TABLE emails(
 	id BIGSERIAL,
-	student_id BIGINT REFERENCES otus_students(id) ON DELETE CASCADE,
+	student_id BIGINT REFERENCES students(id) ON DELETE CASCADE,
     email VARCHAR(255),    
     PRIMARY KEY (id)
 );
 
 CREATE TABLE student_courses(
-	student_id BIGINT REFERENCES otus_students(id) ON DELETE CASCADE,
+	student_id BIGINT REFERENCES students(id) ON DELETE CASCADE,
 	course_id BIGINT REFERENCES courses(id),
 	PRIMARY KEY (student_id, course_id)
 );
