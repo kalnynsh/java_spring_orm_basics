@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Student`s repository v2 based on Jpa")
 @DataJpaTest
-@Import({StudentV2RepositoryJpa.class})
+@Import({StudentV2RepositoryJpaImpl.class})
 public class StudentV2RepositoryJpaImplTest {
 
     @Autowired

@@ -65,15 +65,15 @@ public class StudentRepositoryJpaImplTest {
     @DisplayName("should correctly save all student`s info")
     @Test
     void shouldSaveAllStudentInfo() {
-        val avatar = new Avatar(0, "https://somewhere.org/ljkspavbo/7126587");
-        val email = new Email(0, "theman@example.org");
+        val avatar = new Avatar(11L, "https://somewhere.org/ljkspavbo/7126587");
+        val email = new Email(11L, "theman@example.org");
         val emails = Collections.singletonList(email);
 
-        val course = new Course(0, "Spring boot");
+        val course = new Course(11L, "Spring boot");
         val courses = Collections.singletonList(course);
         // courseRepositoryJpa.save(course);
 
-        val john = new Student(0, "Jhon Crisham", avatar, emails, courses);
+        val john = new Student(11L, "Jhon Crisham", avatar, emails, courses);
         repositoryJpa.save(john);
 
         assertThat(john.getId()).isGreaterThan(0);
