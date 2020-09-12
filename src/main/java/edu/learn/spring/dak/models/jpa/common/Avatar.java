@@ -1,19 +1,16 @@
 package edu.learn.spring.dak.models.jpa.common;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "avatars")
 public class Avatar {
 
 	@Id
@@ -22,5 +19,5 @@ public class Avatar {
 
 	@Column(name = "photo_url", nullable = false, unique = true)
 	private String photoUrl;
-	
+
 }
